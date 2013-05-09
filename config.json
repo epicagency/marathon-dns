@@ -1,6 +1,11 @@
 {
   "projectFile": "~/.marathon",
-  "tld": "dev",
+  "tlds": {
+    "dev" : "127.0.0.1",
+    "vm1" : "10.0.0.2",
+    "vm2" : "10.0.0.3",
+    "vm3" : "10.0.0.4"
+  },
   "proxyPort": 20302,
   "dnsPort": 20301
 }

@@ -16,4 +16,6 @@ Once it finishes, open up your project file (`~/.marathon`), and add any project
 
 would setup `http://myawesomeapp.dev` to point to `http://localhost:3000`
 
+In addition, \*.vm[1-3] is mapped to 10.0.0.[2-4] to simplify Vagrant private network handling
+
 That's basically it.

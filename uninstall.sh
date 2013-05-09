@@ -3,7 +3,7 @@
 
 # Figure out the TLD for the resolver file basically a quick & dirty regex on the config.json file
 
-    tld=`cat ./config.json | grep tld | grep -o ": \"\(.\+\)\",\$" | cut -c 4-6`
+    #tld=`cat ./config.json | grep tld | grep -o ": \"\(.\+\)\",\$" | cut -c 4-6`
 
 # Remove configuration files
 
@@ -12,7 +12,12 @@
     launchctl unload -Fw "$HOME/Library/LaunchAgents/davewasmer.marathon.marathond.plist" 2>/dev/null
 
     echo "*** Removing configuration files..."
-    sudo rm "/etc/resolver/$tld"
+    #sudo rm "/etc/resolver/$tld"
+    # currently hardcoding tlds
+    sudo rm "/etc/resolver/dev"
+    sudo rm "/etc/resolver/vm1"
+    sudo rm "/etc/resolver/vm2"
+    sudo rm "/etc/resolver/vm3"
     sudo rm /Library/LaunchDaemons/davewasmer.marathon.forwarding.plist
     rm "$HOME/Library/LaunchAgents/davewasmer.marathon.marathond.plist"
 

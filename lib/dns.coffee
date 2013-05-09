@@ -16,14 +16,17 @@ class DNSServer extends dnsserver.Server
     callback?()
 
   handleRequest: (req, res) =>
-    pattern = new RegExp(config.tld)
 
     q = req.question ? {}
 
-    if q.type is NS_T_A and q['class'] is NS_C_IN and pattern.test q.name
-      res.addRR q.name, NS_T_A, NS_C_IN, 600, "127.0.0.1"
-    else
-      res.header.rcode = NS_RCODE_NXDOMAIN
+    match = false
+    if q.type is NS_T_A and q['class'] is NS_C_IN
+      for tld, ip of config.tlds
+        pattern = new RegExp(tld)
+        if pattern.test q.name
+          res.addRR q.name, NS_T_A, NS_C_IN, 600, ip
+          match = true
+    res.header.rcode = NS_RCODE_NXDOMAIN unless match
 
     res.send()
 

@@ -35,8 +35,12 @@
     echo "*** Installing configuration files..."
 
     # install the resolve to capture requests to *.dev and forward them to our proxy port
+    # install resolvers form vm1-3 to resolve *.vm[1-3] to 10.0.0.[2-4]
     sudo mkdir /etc/resolver
     sudo cp ./installation/resolver "/etc/resolver/dev"
+    sudo cp ./installation/resolver "/etc/resolver/vm1"
+    sudo cp ./installation/resolver "/etc/resolver/vm2"
+    sudo cp ./installation/resolver "/etc/resolver/vm3"
 
     # install the ipfw rule to capture any inbound requests on port 80 and move them to our proxy port
     # we do this so the proxy server doesn't need to run as sudo - we only need sudo once to install
@@ -53,7 +57,7 @@
     # and inject it into the launchctl plists
     modulepath=`pwd`
     execpath=$modulepath"/index.js"
-    nodepath=$npm_config_prefix"/bin/node"
+    nodepath=`which node`
     sed -i '' -e "s#EXEC#$execpath#g" "$HOME/Library/LaunchAgents/davewasmer.marathon.marathond.plist"
     sed -i '' -e "s#NODE#$nodepath#g" "$HOME/Library/LaunchAgents/davewasmer.marathon.marathond.plist"
     sed -i '' -e "s#LOG#$modulepath/marathon.log#g" "$HOME/Library/LaunchAgents/davewasmer.marathon.marathond.plist"
