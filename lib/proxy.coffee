@@ -27,8 +27,8 @@ fs.watch config.projectFile, ->
 # If no match is found for this domain, return false.
 # 
 findProject = (host) ->
-  tld = config.tld
-  match = host.match(new RegExp("^(.+)\.#{tld}"))
+  tlds = Object.keys(config.tlds).join('|')
+  match = host.match(new RegExp("^(.+)\.#{tlds}"))
   if match? then { name: match[1], port: projects[match[1]] } else false
 
 # 
