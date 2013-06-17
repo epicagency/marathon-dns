@@ -28,7 +28,7 @@ fs.watch config.projectFile, ->
 # 
 findProject = (host) ->
   tlds = Object.keys(config.tlds).join('|')
-  match = host.match(new RegExp("^(.+)\.#{tlds}"))
+  match = host.match(new RegExp("^(.+)\.(#{tlds})$"))
   if match? then { name: match[1], port: projects[match[1]] } else false
 
 # 
